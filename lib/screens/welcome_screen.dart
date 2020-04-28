@@ -22,7 +22,6 @@ class _WelcomeScreenState extends State<WelcomeScreen>
     controller = AnimationController(
       duration: Duration(seconds: 1),
       vsync: this,
-      upperBound: 100.0,
     );
 
     animation = CurvedAnimation(
@@ -35,7 +34,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
       setState(() {
         //
       });
-      print(controller.value);
+      print(animation.value);
     });
   }
 
@@ -55,7 +54,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                   tag: 'logo',
                   child: Container(
                     child: Image.asset('images/logo.png'),
-                    height: 60.0,
+                    height: animation.value * 100,
                   ),
                 ),
                 Text(
