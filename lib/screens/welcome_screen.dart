@@ -26,10 +26,10 @@ class _WelcomeScreenState extends State<WelcomeScreen>
 
     animation = CurvedAnimation(
       parent: controller,
-      curve: Curves.decelerate,
+      curve: Curves.easeIn,
     );
 
-    controller.forward();
+    controller.reverse(from: 1.0);
     controller.addListener(() {
       setState(() {
         //
