@@ -76,7 +76,7 @@ class _ChatScreenState extends State<ChatScreen> {
             StreamBuilder<QuerySnapshot>(
               stream: _firestore.collection('messages').snapshots(),
               builder: (context, snapshot) {
-                List<MessageBubble> messageWidgets = [];
+                List<MessageBubble> messageBubbles = [];
                 if (!snapshot.hasData) {
                   return Center(
                     child: CircularProgressIndicator(
@@ -94,7 +94,7 @@ class _ChatScreenState extends State<ChatScreen> {
                     sender: messageSender,
                     text: messageText,
                   );
-                  messageWidgets.add(messageBubble);
+                  messageBubbles.add(messageBubble);
                 }
 
                 return Expanded(
@@ -103,7 +103,7 @@ class _ChatScreenState extends State<ChatScreen> {
                       horizontal: 10.0,
                       vertical: 20.0,
                     ),
-                    children: messageWidgets,
+                    children: messageBubbles,
                   ),
                 );
               },
