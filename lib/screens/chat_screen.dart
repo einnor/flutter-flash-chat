@@ -76,7 +76,7 @@ class _ChatScreenState extends State<ChatScreen> {
             StreamBuilder<QuerySnapshot>(
               stream: _firestore.collection('messages').snapshots(),
               builder: (context, snapshot) {
-                List<Text> messageWidgets = [];
+                List<MessageBubble> messageWidgets = [];
                 if (!snapshot.hasData) {
                   return Center(
                     child: CircularProgressIndicator(
@@ -90,10 +90,11 @@ class _ChatScreenState extends State<ChatScreen> {
                   final messageText = message.data['text'];
                   final messageSender = message.data['sender'];
 
-                  final messageWidget = Text(
-                    '$messageText from $messageSender',
+                  final messageBubble = MessageBubble(
+                    sender: messageSender,
+                    text: messageText,
                   );
-                  messageWidgets.add(messageWidget);
+                  messageWidgets.add(messageBubble);
                 }
 
                 return Expanded(
@@ -145,6 +146,21 @@ class _ChatScreenState extends State<ChatScreen> {
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class MessageBubble extends StatelessWidget {
+  MessageBubble({@required this.sender, @required this.text});
+  final String sender;
+  final String text;
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      color: Colors.lightBlueAccent,
+      child: Text(
+        '$text from $sender',
       ),
     );
   }
