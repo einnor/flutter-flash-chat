@@ -76,6 +76,9 @@ class _LoginScreenState extends State<LoginScreen> {
                 title: 'Login',
                 onPressed: () async {
                   // Login the user
+                  setState(() {
+                    showSpinner = true;
+                  });
                   try {
                     final AuthResult result =
                         await _auth.signInWithEmailAndPassword(
@@ -87,6 +90,10 @@ class _LoginScreenState extends State<LoginScreen> {
                     }
                   } catch (e) {
                     print(e);
+                  } finally {
+                    setState(() {
+                      showSpinner = false;
+                    });
                   }
                 },
               ),
