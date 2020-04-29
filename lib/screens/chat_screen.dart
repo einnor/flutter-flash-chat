@@ -15,6 +15,7 @@ class ChatScreen extends StatefulWidget {
 }
 
 class _ChatScreenState extends State<ChatScreen> {
+  final messageTextController = TextEditingController();
   final _auth = FirebaseAuth.instance;
   FirebaseUser loggedInUser;
   String message;
@@ -82,6 +83,7 @@ class _ChatScreenState extends State<ChatScreen> {
                 children: <Widget>[
                   Expanded(
                     child: TextField(
+                      controller: messageTextController,
                       onChanged: (value) {
                         // Do something with the user input.
                         setState(() {
@@ -95,6 +97,7 @@ class _ChatScreenState extends State<ChatScreen> {
                     onPressed: () async {
                       // Implement send functionality.
                       try {
+                        messageTextController.clear();
                         await _firestore.collection('messages').add({
                           'text': message,
                           'sender': loggedInUser.email,
