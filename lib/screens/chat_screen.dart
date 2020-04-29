@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flash_chat/constants.dart';
 import 'package:flash_chat/screens/welcome_screen.dart';
+import 'package:flutter/rendering.dart';
 
 class ChatScreen extends StatefulWidget {
   static const String id = 'chat_screen';
@@ -97,6 +98,10 @@ class _ChatScreenState extends State<ChatScreen> {
 
                 return Expanded(
                   child: ListView(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 10.0,
+                      vertical: 20.0,
+                    ),
                     children: messageWidgets,
                   ),
                 );
