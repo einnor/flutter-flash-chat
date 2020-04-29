@@ -77,10 +77,6 @@ class _ChatScreenState extends State<ChatScreen> {
                     onPressed: () async {
                       // Implement send functionality.
                       try {
-                        print({
-                          'text': message,
-                          'sender': loggedInUser.email,
-                        });
                         await _firestore.collection('messages').add({
                           'text': message,
                           'sender': loggedInUser.email,
