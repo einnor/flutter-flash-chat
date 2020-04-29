@@ -76,16 +76,22 @@ class _ChatScreenState extends State<ChatScreen> {
               stream: _firestore.collection('messages').snapshots(),
               builder: (context, snapshot) {
                 List<Text> messageWidgets = [];
-                if (snapshot.hasData) {
-                  final messages = snapshot.data.documents;
-                  for (var message in messages) {
-                    final messageText = message.data['text'];
-                    final messageSender = message.data['sender'];
+                if (!snapshot.hasData) {
+                  return Center(
+                    child: CircularProgressIndicator(
+                      backgroundColor: Colors.lightBlueAccent,
+                    ),
+                  );
+                }
 
-                    final messageWidget =
-                        Text('$messageText from $messageSender');
-                    messageWidgets.add(messageWidget);
-                  }
+                final messages = snapshot.data.documents;
+                for (var message in messages) {
+                  final messageText = message.data['text'];
+                  final messageSender = message.data['sender'];
+
+                  final messageWidget =
+                      Text('$messageText from $messageSender');
+                  messageWidgets.add(messageWidget);
                 }
 
                 return Column(
@@ -116,9 +122,6 @@ class _ChatScreenState extends State<ChatScreen> {
                         await _firestore.collection('messages').add({
                           'text': message,
                           'sender': loggedInUser.email,
-                        });
-                        setState(() {
-                          message = '';
                         });
                       } catch (e) {
                         print(e);
