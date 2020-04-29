@@ -11,6 +11,7 @@ class ChatScreen extends StatefulWidget {
 }
 
 class _ChatScreenState extends State<ChatScreen> {
+  String message;
   final _auth = FirebaseAuth.instance;
   FirebaseUser loggedInUser;
 
@@ -62,7 +63,10 @@ class _ChatScreenState extends State<ChatScreen> {
                   Expanded(
                     child: TextField(
                       onChanged: (value) {
-                        //Do something with the user input.
+                        // Do something with the user input.
+                        setState(() {
+                          message = value;
+                        });
                       },
                       decoration: kMessageTextFieldDecoration,
                     ),
