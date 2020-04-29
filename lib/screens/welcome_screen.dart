@@ -21,7 +21,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
     super.initState();
 
     controller = AnimationController(
-      duration: Duration(seconds: 2),
+      duration: Duration(seconds: 1),
       vsync: this,
     );
 
@@ -65,9 +65,6 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                   ),
                 ),
                 TypewriterAnimatedTextKit(
-                  onTap: () {
-                    print('Tap Event');
-                  },
                   textAlign: TextAlign.start,
                   alignment: AlignmentDirectional.topStart,
                   text: [
