@@ -157,10 +157,13 @@ class MessageBubble extends StatelessWidget {
   final String text;
   @override
   Widget build(BuildContext context) {
-    return Material(
-      color: Colors.lightBlueAccent,
-      child: Text(
-        '$text from $sender',
+    return Padding(
+      padding: EdgeInsets.all(10.0),
+      child: Material(
+        color: Colors.lightBlueAccent,
+        child: Text(
+          '$text from $sender',
+        ),
       ),
     );
   }
