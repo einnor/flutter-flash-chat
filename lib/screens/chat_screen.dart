@@ -6,6 +6,7 @@ import 'package:flash_chat/screens/welcome_screen.dart';
 import 'package:flutter/rendering.dart';
 
 final _firestore = Firestore.instance;
+FirebaseUser loggedInUser;
 
 class ChatScreen extends StatefulWidget {
   static const String id = 'chat_screen';
@@ -17,7 +18,6 @@ class ChatScreen extends StatefulWidget {
 class _ChatScreenState extends State<ChatScreen> {
   final messageTextController = TextEditingController();
   final _auth = FirebaseAuth.instance;
-  FirebaseUser loggedInUser;
   String message;
 
   @override
@@ -146,9 +146,12 @@ class _MessagesStreamState extends State<MessagesStream> {
           final messageText = message.data['text'];
           final messageSender = message.data['sender'];
 
+          final currentUser = loggedInUser.email;
+
           final messageBubble = MessageBubble(
             sender: messageSender,
             text: messageText,
+            isMe: currentUser == messageSender,
           );
           messageBubbles.add(messageBubble);
         }
@@ -168,9 +171,11 @@ class _MessagesStreamState extends State<MessagesStream> {
 }
 
 class MessageBubble extends StatelessWidget {
-  MessageBubble({@required this.sender, @required this.text});
+  MessageBubble({@required this.sender, @required this.text, this.isMe});
   final String sender;
   final String text;
+  final bool isMe;
+
   @override
   Widget build(BuildContext context) {
     return Padding(
