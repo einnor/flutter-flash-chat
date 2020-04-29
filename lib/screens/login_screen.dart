@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flash_chat/components/rounded_button.dart';
 import 'package:flash_chat/constants.dart';
+import 'package:flash_chat/screens/chat_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   static const String id = 'login_screen';
@@ -72,10 +73,14 @@ class _LoginScreenState extends State<LoginScreen> {
               onPressed: () async {
                 // Login the user
                 try {
-                  AuthResult result = await _auth.signInWithEmailAndPassword(
+                  final AuthResult result =
+                      await _auth.signInWithEmailAndPassword(
                     email: email,
                     password: password,
                   );
+                  if (result != null) {
+                    Navigator.pushNamed(context, ChatScreen.id);
+                  }
                 } catch (e) {
                   print(e);
                 }
